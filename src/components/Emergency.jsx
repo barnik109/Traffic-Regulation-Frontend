@@ -1,5 +1,5 @@
 import React from 'react';
-import  {india} from 'india-ners';
+import  {india} from '../assets/india-ners.png';
 
 function Emergency() {
     // Functionality for emergency assistance can be added here
