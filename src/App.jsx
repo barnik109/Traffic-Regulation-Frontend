@@ -16,7 +16,7 @@ import Emergency from './components/Emergency';
 import Faqpage from './components/Faqpage';
 import Contact from './components/Contact';
 import AboutUs from './AboutUs/AboutUs';
-import Footer from './components/footer';
+import Footer from './components/Footer';
 import SignUp from './assets/Signup.gif';
 import Login from './assets/Login.gif';
 import { motion } from "framer-motion";
