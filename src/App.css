@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    user-select: none;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    position: relative;
+    /* Add position relative to establish a new containing block for absolute positioning */
+    width: 100%;
+    height: 100vh;
+}
+
+.blob{
+    height: 73%;
+    width: 88%;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(50px);
+}
+.reg-btn{
+    position: relative;
+    top: 25px;
+    left: 20px;
+}
+
+
+/* FAQ section styling */
+
+.faqs {
+    width: 100%;
+    /* max-width: 768px; */
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.faqs .faq {
+    margin: 15px;
+    padding: 15px;
+    background: #272461f9;
+    border-radius: 10px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.faqs .faq .faq-question {
+    position: relative;
+    font-size: 20px;
+    padding-right: 80px;
+    transition: all 0.4s ease;
+}
+
+.faqs .faq .faq-question::after {
+    content: "+";
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    transition: all 0.2s ease;
+}
+
+.faqs .faq .faq-answer {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.faqs .faq.open .faq-question {
+    margin-bottom: 15px;
+}
+
+.faqs .faq.open .faq-question::after {
+    content: "-";
+}
+
+.faqs .faq.open .faq-answer {
+    max-height: 1000px;
+    opacity: 1;
+}
+
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(5px);
+        /* Adjust bounce height as needed */
+    }
+}
+
+@keyframes growShrink {
+    0% {
+        font-size: 5rem;
+        /* Initial font size */
+    }
+
+    50% {
+        font-size: 6rem;
+        /* Increased font size */
+    }
+
+    100% {
+        font-size: 5rem;
+        /* Back to initial font size */
+    }
+}
+
