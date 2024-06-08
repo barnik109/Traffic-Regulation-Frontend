@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { motion } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
 
 const OfficerRegistration = ({ handleRegistrationSuccess }) => {
     const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const OfficerRegistration = ({ handleRegistrationSuccess }) => {
         password: ''
     });
     const [error, setError] = useState('');
+    const navigate=useNavigate()
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,6 +28,7 @@ const OfficerRegistration = ({ handleRegistrationSuccess }) => {
             if (response.data.success) {
                 // handleRegistrationSuccess();
                 alert("Registration successful")
+                navigate('/')
             } else {
                 setError(response.data.message);
             }
@@ -60,10 +63,10 @@ const OfficerRegistration = ({ handleRegistrationSuccess }) => {
                                     </div>
                                 </div>
                                 <div className="flex flex-wrap gap-10 justify-center items-center">
-                                    <motion.button whileHover={{ scale: 1.2 }} type="submit" class="w-[200px] text-white bg-gray-600 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</motion.button>
+                                    <motion.button whileHover={{ scale: 1.2 }} type="submit" class="w-[200px] text-white bg-gray-600 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign Up</motion.button>
                                 </div>
                                 <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                                    Alredy have an account? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Log in</a>
+                                    Alredy have an account? <a href="/OfficerLogin" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Log in</a>
                                 </p>
                             </form>
                         </div>

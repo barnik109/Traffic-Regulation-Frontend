@@ -20,6 +20,7 @@ import Footer from './components/Footer';
 import SignUp from './assets/Signup.gif';
 import Login from './assets/Login.gif';
 import { motion } from "framer-motion";
+import Metamask from "./assets/Metamask-logo.png"
 
 function App() {
   const [state, setState] = useState({
@@ -217,18 +218,14 @@ function App() {
           <ul className='list-disc flex flex-col justify-evenly h-full'>
             <li>Always wear helmets.</li>
             <li>Never drink and drive.</li>
-            <li>Never stop abruptly in traffic. Always move to the left and then slow down.</li>
             <li>Stop or slow down your vehicle and allow the pedestrians to crossroads at unmanned/signaled Zebra crossings.</li>
             <li>Follow the traffic signals, boards, and signages.</li>
             <li>Always carry your driver’s license and other important documents such as vehicle registration, insurance, road tax & P.U.C. Certificates.</li>
             <li>Do not use your cell phones while driving. In case of an urgency, park on the left and answer the call.</li>
             <li>Do not ride at high speeds. If you lose control, your life may be at stake.</li>
-            <li>Do not forget to wear helmets while driving. Helmets should be ISI marked and buckled properly.</li>
             <li>Don’t allow children to sit on fuel tanks or stand in front of the rider.</li>
             <li>Use your lights while riding at night.</li>
             <li>Do not ride or wheel your vehicle on the footpath.</li>
-            <li>While passing a stationary vehicle, allow enough clearance for the car doors.</li>
-            <li>Comprehend the signals given by other road users and use the same while riding.</li>
             <li>Avoid using brakes at turns. If needed, ensure both brakes are applied gently.</li>
             <li>Do not try and weave your way through stationary or slow-moving traffic. It may cause accidents.</li>
             <li>Always ride with both hands on the handlebar except when signaling.</li>
@@ -301,8 +298,8 @@ function App() {
                       <li className="hover:underline cursor-pointer" >HOME</li>
                       <li className="hover:underline cursor-pointer" onClick={handleAbout}>ABOUT</li>
                       <li>
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                          Connect with MetaMask
+                        <button className="w-32 flex"> CONNECT
+                          <img src={Metamask} className='h-7' alt="" />
                         </button>
                       </li>
                     </ul>
@@ -338,8 +335,6 @@ function App() {
                       <div className="text-left m-5 px-20">
                         <p>
                           Here you can find essential information about traffic regulations, including speed limits, traffic signs, parking rules, and more.
-                        </p>
-                        <p>
                           Understanding and following traffic regulations is crucial for safe and efficient transportation. Make sure to stay informed and abide by the rules to contribute to smoother traffic flow and promote road safety.
                         </p>
                       </div>

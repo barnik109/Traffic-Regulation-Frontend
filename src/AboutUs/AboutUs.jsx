@@ -49,7 +49,7 @@ const AboutUs = () => {
                     </div>
 
                     <div class="flex flex-col items-center p-8 transition-colors duration-300 transform border cursor-pointer rounded-xl hover:border-transparent group hover:bg-blue-600 dark:border-gray-700 dark:hover:border-transparent">
-                        <img class="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300" src="https://media.licdn.com/dms/image/D4D35AQHwJ68d28C9rQ/profile-framedphoto-shrink_800_800/0/1710875133170?e=1713816000&v=beta&t=S8mFYcUh0mNq01VK0bBaTep4AovqCAHeiDKMpfyeXrU" alt="" />
+                        <img class="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300" src="https://media.licdn.com/dms/image/D4D03AQFU0-SEd70kBw/profile-displayphoto-shrink_200_200/0/1710875131225?e=1723075200&v=beta&t=GTpvCvITrDxOkt93ciPh7yKheOwwaUV2adp_v1bVz8c" alt="" />
 
                             <h1 class="mt-4 text-2xl font-semibold text-gray-700 capitalize dark:text-white group-hover:text-white">Barnik Maity</h1>
 

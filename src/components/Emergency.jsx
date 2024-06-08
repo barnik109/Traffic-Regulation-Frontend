@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/india-ners.png'
+import EmergePic from '../assets/india-ners.png'
 
 
 function Emergency() {
@@ -33,7 +33,7 @@ function Emergency() {
                         </div>
 
                         <div className='w-1/2 flex justify-center'>
-                            <img className='w-[300px]' src='../assets/india-ners.png' alt="" />
+                            <img className='w-[300px]' src={EmergePic} alt="" />
                         </div>
                     </div>
 
