@@ -65,22 +65,34 @@ const TrafficOfficer = ({ contract, officerBadgeNumber }) => {
       const tx = await contract.processViolation(offenceType);
       await tx.wait();
 
-      const response = await fetch('https://traffic-regulation-api.vercel.app/submit-violation', {
+      const violationDetails = {
+        drivingLicenseNumber: enteringLicenseNumber,
+        violationDate,
+        violationType,
+        demeritPoints: calculateDemeritPoints(offenceType),
+      };
+
+      // Convert the violation details object to JSON string
+      const payload = JSON.stringify(violationDetails);
+
+      // Calculate the payload size using TextEncoder
+      const encoder = new TextEncoder();
+      const payloadSize = encoder.encode(payload).length;
+      console.log(`Payload size: ${payloadSize} bytes`);
+
+
+      const response = await fetch('http://localhost:3001/submit-violation', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          drivingLicenseNumber: enteringLicenseNumber,
-          violationDate,
-          violationType,
-          demeritPoints: calculateDemeritPoints(offenceType),
-        }),
+        body: payload,
       });
 
       const result = await response.json();
 
       if (result.success) {
+        console.log(result)
         console.log(result.message);
       } else {
         console.error(result.message);
@@ -164,7 +176,7 @@ const TrafficOfficer = ({ contract, officerBadgeNumber }) => {
 
   return (
     <div>
-      <nav className="bg-gray-800 text-white p-4 flex justify-between items-center tailwind-scrollbar-hide">
+      <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
         <div className="flex items-center">
           <span className="mr-4">Welcome, {badgeNumber}</span>
         </div>
@@ -179,7 +191,7 @@ const TrafficOfficer = ({ contract, officerBadgeNumber }) => {
           <h2 className="text-2xl">Traffic Officer Panel</h2>
           <div className="p-6 flex flex-col">
             <div>
-              <label className="font-bold block">Entering License Number:</label>
+              <label className="font-bold block">Enter License Number:</label>
               <input
                 type="text"
                 value={enteringLicenseNumber}

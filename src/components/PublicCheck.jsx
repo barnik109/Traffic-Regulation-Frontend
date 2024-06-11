@@ -1,6 +1,6 @@
 // PublicCheck.js
 import React, { useState, useEffect } from "react";
-import publicPic from '../assets/public.gif'
+import publicPic from '../assets/public.gif';
 
 const PublicCheck = ({ contract, username }) => {
   const [licenseNumber, setLicenseNumber] = useState("");
@@ -13,16 +13,14 @@ const PublicCheck = ({ contract, username }) => {
     const loggedIn = localStorage.getItem("isLoggedIn") === "true";
     setIsLoggedIn(loggedIn);
 
-    // Retrieve badge number from local storage
     const usertitle = localStorage.getItem("username");
     if (usertitle) {
       setUser(usertitle);
     } else if (username) {
       setUser(username);
     }
-  }, []);
+  }, [username]);
 
-  // Function to save badge number to local storage
   const saveUserToLocalStorage = (username) => {
     localStorage.setItem("username", username);
   };
@@ -45,34 +43,32 @@ const PublicCheck = ({ contract, username }) => {
 
   const checkViolations = async () => {
     try {
-      // Call the backend API to check violations based on license number
       const response = await fetch(
         `https://traffic-regulation-api.vercel.app/check-violations/${licenseNumber}`
       );
       const result = await response.json();
 
       if (result.success) {
-        // Update state with retrieved violation details
         setViolations(result.violations);
 
-        // Calculate total demerit points
         const totalDemeritPoints = result.violations.reduce(
           (total, violation) => total + violation.demeritPoints,
           0
         );
-        // Check if total demerit points exceed 100
+
         if (totalDemeritPoints > 100) {
-          // Trigger suspension and show penalty message
-          if (noOfSuspended == 1) {
-            penalty = string(abi.encodePacked("License ", licenseNumber, " suspended for 6 months"));
-          } else if (noOfSuspended == 2) {
-            penalty = string(abi.encodePacked("License ", licenseNumber, " suspended for 12 months"));
-          } else if (noOfSuspended == 3) {
-            penalty = string(abi.encodePacked("License ", licenseNumber, " suspended for 6 months and to be revoked"));
+          let penalty = "";
+          if (noOfSuspended === 1) {
+            penalty = `License ${licenseNumber} suspended for 6 months`;
+          } else if (noOfSuspended === 2) {
+            penalty = `License ${licenseNumber} suspended for 12 months`;
+          } else if (noOfSuspended === 3) {
+            penalty = `License ${licenseNumber} suspended for 6 months and to be revoked`;
           } else if (noOfSuspended > 3) {
-            penalty = string(abi.encodePacked("License ", licenseNumber, " revoked"));
+            penalty = `License ${licenseNumber} revoked`;
           }
-          alert("Your license is suspended due to exceeding 100 demerit points.");
+          alert(`Your license is suspended due to exceeding 100 demerit points. ${penalty}`);
+          increaseSuspendedCounter();
         } else {
           alert(`Total demerit points: ${totalDemeritPoints}`);
         }
@@ -84,7 +80,6 @@ const PublicCheck = ({ contract, username }) => {
     }
   };
 
-  // Call the function to save badge number to local storage when it changes
   useEffect(() => {
     if (user) {
       saveUserToLocalStorage(user);
@@ -93,7 +88,7 @@ const PublicCheck = ({ contract, username }) => {
 
   return (
     <div className="content">
-      <nav className="bg-gray-800 text-white p-4 flex justify-between items-center tailwind-scrollbar-hide">
+      <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
         <div className="flex items-center">
           <span className="mr-4">Welcome, {user}</span>
         </div>
@@ -103,62 +98,49 @@ const PublicCheck = ({ contract, username }) => {
           </button>
         </div>
       </nav>
-      <div className="bg-white h-screen flex items-center justify-center">
-        <div>
-          <div className="bg-gray-200 rounded-3xl shadow-lg w-[30rem] h-[] flex flex-col items-center py-5">
-            <h2 className="text-2xl">Check Violation Details</h2>
-            <div className="p-6 flex flex-col">
-              <label className="font-bold block">Enter License Number:</label>
-              <input
-                type="text"
-                value={licenseNumber}
-                onChange={handleLicenseNumberChange}
-                className="rounded-lg border border-solid border-slate-100 shadow-lg px-5 py-2 mb-5 w-full block"
-              />
-              <button
-                onClick={checkViolations}
-                className="bg-blue-700 text-white rounded-lg mx-10 px-5 py-2 hover:bg-blue-500"
-              >
-                Check Violations
-              </button>
-            </div>
-          </div>
-          {/* Display Violation Details */}
-          <div className="bg-gray-200 rounded-3xl shadow-lg w-[30rem] h-[] flex flex-col items-center py-5 my-3.5">
-            <div className="p-6 flex flex-col justify-center items-center">
-              <h2 className="text-lg mb-3">Violation Details</h2>
-              <table className="table-fixed">
-                <thead>
-                  <tr className="bg-slate-300">
-                    <th className="border border-solid border-slate-400">Date</th>
-                    <th className="border border-solid border-slate-400">Type</th>
-                    <th className="border border-solid border-slate-400">Demerit Points</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {violations.map((violation, index) => (
-                    <tr key={index}>
-                      <td className="px-6 border border-solid border-slate-400">
-                        {violation.violationDate}
-                      </td>
-                      <td className="px-6 border border-solid border-slate-400">
-                        {" "}
-                        {violation.violationType}
-                      </td>
-                      <td className="px-6 border border-solid border-slate-400">
-                        {" "}
-                        {violation.demeritPoints}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+      <div className="bg-white flex flex-row items-center justify-center py-12">
+        <div className="bg-gray-200 rounded-3xl shadow-lg w-full max-w-md p-6 mb-6 mr-8">
+          <h2 className="text-2xl mb-4 text-center">Check Violation Details</h2>
+          <div className="flex flex-col">
+            <label className="font-bold mb-2">Enter License Number:</label>
+            <input
+              type="text"
+              value={licenseNumber}
+              onChange={handleLicenseNumberChange}
+              className="rounded-lg border border-solid border-gray-300 px-5 py-2 mb-5 w-full"
+            />
+            <button
+              onClick={checkViolations}
+              className="bg-blue-700 text-white rounded-lg px-5 py-2 hover:bg-blue-500 self-center"
+            >
+              Check Violations
+            </button>
           </div>
         </div>
-        <div>
-          <img src={publicPic} alt="" />
+        <div className="bg-gray-200 rounded-3xl shadow-lg w-200 p-6 mb-6">
+          <h2 className="text-lg mb-3 text-center">Violation Details</h2>
+          <table className="table-auto w-full">
+            <thead>
+              <tr className="bg-gray-300">
+                <th className="border border-gray-400 px-4 py-2">Date</th>
+                <th className="border border-gray-400 px-4 py-2">Type</th>
+                <th className="border border-gray-400 px-4 py-2">Demerit Points</th>
+              </tr>
+            </thead>
+            <tbody>
+              {violations.map((violation, index) => (
+                <tr key={index}>
+                  <td className="border border-gray-400 px-4 py-2 text-center">{violation.violationDate}</td>
+                  <td className="border border-gray-400 px-4 py-2 text-center">{violation.violationType}</td>
+                  <td className="border border-gray-400 px-4 py-2 text-center">{violation.demeritPoints}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+        {/* <div className="flex justify-center">
+          <img src={publicPic} alt="Public Check" className="w-48 h-48" />
+        </div> */}
       </div>
     </div>
   );
